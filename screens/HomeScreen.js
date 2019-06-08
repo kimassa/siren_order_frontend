@@ -18,6 +18,8 @@ export default function HomeScreen() {
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
+        <Text style={styles.optionsTitleText}>매장선택</Text>
+
         <View style={styles.welcomeContainer}>
           <Image
             source={
@@ -70,7 +72,8 @@ export default function HomeScreen() {
 }
 
 HomeScreen.navigationOptions = {
-  header: null,
+  // header: null,
+  title: '주문하기'
 };
 
 function DevelopmentModeNotice() {
@@ -112,6 +115,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  optionsTitleText: {
+    fontSize: 16,
+    marginLeft: 15,
+    marginTop: 9,
+    marginBottom: 12,
   },
   developmentModeText: {
     marginBottom: 20,
