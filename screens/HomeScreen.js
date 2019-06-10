@@ -7,12 +7,34 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableHighlight,
   View,
+  FlatList
 } from 'react-native';
-
+import { ListItem } from 'react-native-elements';
 import { MonoText } from '../components/StyledText';
 
+const sampleData = [
+  {
+    "name": "논현힐탑",
+    "address": "서울특별시 강남구 논현로 648 (논현동)",
+    "phone": "02-758-8426"
+  },
+  {
+    "name": "도산가로수길",
+    "address": "서울특별시 강남구 도산대로 134, 2층 (논현동)",
+    "phone": "02-758-8429"
+  },
+  {
+    "name": "삼성역",
+    "address": "서울특별시 강남구 테헤란로103길 9 (삼성동)",
+    "phone": "02-758-8585"
+  }
+];
+
 export default function HomeScreen() {
+
+  // fetch('http://10.58.5.39:8000/supplier/').then(res=>res.json()).then(res=>console.log(res))
   return (
     <View style={styles.container}>
       <ScrollView
@@ -20,53 +42,77 @@ export default function HomeScreen() {
         contentContainerStyle={styles.contentContainer}>
         <Text style={styles.optionsTitleText}>매장선택</Text>
 
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
+        <FlatList
+          style={{}}
+          data={sampleData}
+          renderItem={({ item }) => (
+            <ListItem
+              key={item.id}
+              title={item.name}
+              subtitle={item.address}
+              rightSubtitle={item.distance+'m'}
+              containerElement={TouchableHighlight}
+              containerStyle={{ borderBottomColor: '#ddd', borderBottomWidth: 1 }}
+            />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
 
-        <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
+        {false && (
+          <View style={styles.welcomeContainer}>
+            <Image
+              source={
+                __DEV__
+                  ? require('../assets/images/robot-dev.png')
+                  : require('../assets/images/robot-prod.png')
+              }
+              style={styles.welcomeImage}
+            />
           </View>
+        )}
 
-          <Text style={styles.getStartedText}>
-            테스트..
-          </Text>
-        </View>
+        {false && (
+          <View style={styles.getStartedContainer}>
+            <DevelopmentModeNotice />
 
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
+            <Text style={styles.getStartedText}>Get started by opening</Text>
+
+            <View
+              style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+              <MonoText>screens/HomeScreen.js</MonoText>
+            </View>
+
+            <Text style={styles.getStartedText}>
+              테스트..
             </Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        )}
+        {false && (
+          <View style={styles.helpContainer}>
+            <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+              <Text style={styles.helpLinkText}>
+                Help, it didn’t automatically reload!
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </ScrollView>
 
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
+      {false && (
+        <View style={styles.tabBarInfoContainer}>
+          <Text style={styles.tabBarInfoText}>
+            This is a tab bar. You can edit it in:
+          </Text>
 
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
+          <View
+            style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+            <MonoText style={styles.codeHighlightText}>
+              navigation/MainTabNavigator.js
+            </MonoText>
+          </View>
         </View>
-      </View>
+      )}
+
     </View>
   );
 }
