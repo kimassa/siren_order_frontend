@@ -7,7 +7,7 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import HistoryScreen from '../screens/HistoryScreen';
+import WorkingListScreen from '../screens/WorkingListScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const HomeStack = createStackNavigator({
@@ -26,12 +26,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const HistoryStack = createStackNavigator({
-  History: HistoryScreen,
+const WorkingListStack = createStackNavigator({
+  WorkingList: WorkingListScreen,
 });
 
-HistoryStack.navigationOptions = {
-  tabBarLabel: '히스토리',
+WorkingListStack.navigationOptions = {
+  tabBarLabel: '구현목록',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -56,6 +56,6 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  HistoryStack,
+  WorkingListStack,
   SettingsStack,
 });
