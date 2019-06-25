@@ -17,10 +17,17 @@ import JsScreen from '../screens/JsScreen';
 import SyScreen from '../screens/SyScreen';
 import YhpScreen from '../screens/YhpScreen';
 import HsScreen from '../screens/HsScreen';
+import StoreDetails from '../screens/StoreDetails';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-});
+const HomeStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    StoreDetails: StoreDetails,
+  },
+  {
+    initialRouteName: "Home"
+  }
+);
 
 HomeStack.navigationOptions = {
   tabBarLabel: '주문',
@@ -43,7 +50,10 @@ const WorkingListStack = createStackNavigator({
   Js: JsScreen,
   Sy: SyScreen,
   Yhp: YhpScreen,
-  Hs: HsScreen
+  Hs: HsScreen,
+  Sd: StoreDetails,
+},{
+  initialRouteName: "WorkingList",
 });
 
 WorkingListStack.navigationOptions = {
