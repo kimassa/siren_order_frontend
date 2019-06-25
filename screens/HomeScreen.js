@@ -1,161 +1,73 @@
-import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   TouchableHighlight,
   View,
   FlatList
 } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import { MonoText } from '../components/StyledText';
 
-const sampleData = [
-  {
-    "name": "논현힐탑",
-    "address": "서울특별시 강남구 논현로 648 (논현동)",
-    "phone": "02-758-8426"
-  },
-  {
-    "name": "도산가로수길",
-    "address": "서울특별시 강남구 도산대로 134, 2층 (논현동)",
-    "phone": "02-758-8429"
-  },
-  {
-    "name": "삼성역",
-    "address": "서울특별시 강남구 테헤란로103길 9 (삼성동)",
-    "phone": "02-758-8585"
+class HomeScreen extends Component {
+  
+  state = {
+    storeList: []
+  };
+  
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(async position => {
+        const res = await fetch(`http://54.180.153.12:8000/supplier/location?lon=${position.coords.longitude}&lat=${position.coords.latitude}`);
+        const result = await res.json();
+        
+        this.setState({
+          storeList: result
+        });
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
   }
-];
-
-export default function HomeScreen() {
-
-  // fetch('http://10.58.5.39:8000/supplier/').then(res=>res.json()).then(res=>console.log(res))
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <Text style={styles.optionsTitleText}>매장선택</Text>
-
-        <FlatList
-          style={{}}
-          data={sampleData}
-          renderItem={({ item }) => (
-            <ListItem
-              key={item.id}
-              title={item.name}
-              subtitle={item.address}
-              rightSubtitle={item.distance+'m'}
-              containerElement={TouchableHighlight}
-              containerStyle={{ borderBottomColor: '#ddd', borderBottomWidth: 1 }}
-            />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
-
-        {false && (
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
-        )}
-
-        {false && (
-          <View style={styles.getStartedContainer}>
-            <DevelopmentModeNotice />
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View
-              style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              테스트..
-            </Text>
-          </View>
-        )}
-        {false && (
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>
-                Help, it didn’t automatically reload!
-              </Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </ScrollView>
-
-      {false && (
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            This is a tab bar. You can edit it in:
-          </Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>
-              navigation/MainTabNavigator.js
-            </MonoText>
-          </View>
-        </View>
-      )}
-
-    </View>
-  );
+  
+  render() {
+    const {
+      storeList
+    } = this.state;
+    
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}>
+          <Text style={styles.optionsTitleText}>매장선택</Text>
+          
+          <FlatList
+            style={{}}
+            data={storeList}
+            renderItem={({ item }) => (
+              <ListItem
+                key={item.id}
+                title={item.branch}
+                id={item.supplier_id}
+                subtitle={item.address}
+                rightSubtitle={parseInt(item.distance)+' m'}
+                containerElement={TouchableHighlight}
+                containerStyle={{ borderBottomColor: '#ddd', borderBottomWidth: 1 }}
+              />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </ScrollView>
+      </View>
+    )
+  }
 }
 
 HomeScreen.navigationOptions = {
   // header: null,
   title: '주문하기'
 };
-
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -251,3 +163,5 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
 });
+
+export default HomeScreen;
