@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import {
   createStackNavigator,
   createBottomTabNavigator,
+  createMaterialTopTabNavigator
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -18,6 +19,7 @@ import SyScreen from '../screens/SyScreen';
 import YhpScreen from '../screens/YhpScreen';
 import HsScreen from '../screens/HsScreen';
 import StoreDetails from '../screens/StoreDetails';
+import YrScreen from '../screens/YrScreen';
 
 const HomeStack = createStackNavigator(
   {
@@ -51,6 +53,7 @@ const WorkingListStack = createStackNavigator({
   Sy: SyScreen,
   Yhp: YhpScreen,
   Hs: HsScreen,
+  Yr: YrScreen,
   Sd: StoreDetails,
 },{
   initialRouteName: "WorkingList",
