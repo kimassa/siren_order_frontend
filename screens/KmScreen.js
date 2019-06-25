@@ -2,85 +2,116 @@ import React, { Component } from 'react';
 import { 
   View, 
   Text,
+  Image,
+  TextInput,
   ScrollView,
   StyleSheet,
+  TouchableOpacity
 } from 'react-native';
-
-import { CheckBox, Button } from 'react-native-elements';
 
 class KmScreen extends Component {
 
-  state = {
-    isAgreed: false,
-    name: '',
-    birthday: '',
-  }
-
   render () {
     return (
-      <View style={styles.container}>
-          <View style={styles.wrapper}>
-            <View style={styles.header}>
-              <Text style={styles.mainParagraph}>
-                {`본인확인을 위해\n인증을 진행해 주세요`}
-              </Text>
-            </View>
-          {/* checkbox가 안드로이드와 ios가 달라 분기점이 필요함 */}
-          <CheckBox
-              title='본인 인증 서비스 약관 전체동의'
-              checkedIcon='dot-circle-o'
-              uncheckedIcon='circle-o'
-              checked={this.state.isAgreed}
-              onPress={() => this.setState({isAgreed: !this.state.isAgreed})}
-              containerStyle={{ backgroundColor: "transparent", borderColor: "transparent" }}
+     <View style={styles.container}>
+       <ScrollView>
+       <View style={styles.wrapper}>
+        <View style={styles.logoView}>
+          <Image
+            style={{ width: 70, height: 70, }}
+            source={require('../Logo.png')}
           />
+        </View>
 
-          <View style={styles.listParagraph}>
-            <Text style={{ padding: 5 }}>
-              휴대폰 본인 인증 서비스 이용약관 동의(필수)
-            </Text>
-            <Text style={{ padding: 5 }}>
-              휴대폰 통신사 이용약관 동의(필수)
-            </Text>
-            <Text style={{ padding: 5 }}>
-              개인정보 제공 및 이용 동의(필수)
-            </Text>
-            <Text style={{ padding: 5 }}>
-              고유식별정보 처리(필수)
-            </Text>
-          </View>
+        <View>
+          <Text style={styles.greetingMsg}>
+            {`안녕하세요.\n스타벅스입니다.`}
+          </Text>
+        </View>
 
-          <Button
-            style={{ backgroundColor: "#C0C0C0", color: "white" }}
-            title="다음"
+        <View style={styles.loginMsg}>
+          <Text style={{ color: 'gray' }}>회원 서비스 이용을 위해 로그인 해 주세요.</Text>
+        </View>
+
+        <View>
+          <TextInput
+            style={styles.inputBox}
+            placeholder="아이디"
           />
-          
-          </View>
+          <TextInput
+            style={styles.inputBox}
+            placeholder="비밀번호"
+          />
+        </View>
+
+        <View style={styles.findUser}>
+          <View style={{ borderRightWidth: 1, paddingRight: 10}}><Text>아이디 찾기</Text></View>
+          <View style={{ borderRightWidth: 1, paddingRight: 10}}><Text>비밀번호 찾기</Text></View>
+          <Text>회원가입</Text>
+        </View>
+
       </View>
+
+      <TouchableOpacity style={styles.button}>
+        <Text style={{ color: 'white', fontSize: 23, padding: 23 }}>로그인하기</Text>
+      </TouchableOpacity>
+
+      </ScrollView>
+    </View>
     )
   }
 }
 
+KmScreen.navigationOptions = {
+  //header: null,
+  title: '로그인',
+  headerStyle: {
+    backgroundColor: 'black',
+  },
+  headerTintColor: 'white',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+};
+
 const styles = StyleSheet.create({
   container : {
-    flex: 1
+    flex: 1,
   },
   wrapper: {
+    padding: 50,
+  },
+  logoView : {
+    alignItems: 'stretch',
+    marginBottom: 20,
+  },
+  greetingMsg : {
+    fontSize: 30,
+    marginBottom: 20,
+    alignItems: 'stretch',
+  },
+  loginMsg : {
+    fontSize: 20,
+    marginBottom: 150,
+    alignItems: 'stretch',
+  },
+  inputBox : {
+    backgroundColor: '#ffffff',
+    marginBottom: 20,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray'
+  },
+  findUser : {
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  button: {
     flex: 1,
-    padding: 20,
-    backgroundColor: "lightblue"
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#3CB371'
   },
-  mainParagraph: {
-    fontSize: 25,
-  },
-  header : {
-    marginBottom: 20
-  },
-  listParagraph : {
-    paddingBottom: 20,
-    borderBottomWidth: 2,
-    borderBottomColor: "#C0C0C0"
-  }
 });
 
 export default KmScreen;
