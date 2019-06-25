@@ -9,6 +9,14 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import WorkingListScreen from '../screens/WorkingListScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import SjScreen from '../screens/SjScreen';
+import YhkScreen from '../screens/YhkScreen';
+import SsScreen from '../screens/SsScreen';
+import KmScreen from '../screens/KmScreen';
+import JsScreen from '../screens/JsScreen';
+import SyScreen from '../screens/SyScreen';
+import YhpScreen from '../screens/YhpScreen';
+import HsScreen from '../screens/HsScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -28,6 +36,14 @@ HomeStack.navigationOptions = {
 
 const WorkingListStack = createStackNavigator({
   WorkingList: WorkingListScreen,
+  Sj: SjScreen,
+  Yhk: YhkScreen,
+  Ss: SsScreen,
+  Km: KmScreen,
+  Js: JsScreen,
+  Sy: SyScreen,
+  Yhp: YhpScreen,
+  Hs: HsScreen
 });
 
 WorkingListStack.navigationOptions = {
