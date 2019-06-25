@@ -63,6 +63,15 @@ export default class WorkingListScreen extends Component {
         <Touchable
           style={styles.option}
           background={Touchable.Ripple('#ccc', false)}
+          onPress={e => this._moveToPage('Km2')}>
+          <View>
+            <Text style={styles.optionText}>건모2</Text>
+          </View>
+        </Touchable>
+
+        <Touchable
+          style={styles.option}
+          background={Touchable.Ripple('#ccc', false)}
           onPress={e => this._moveToPage('Js')}>
           <View>
             <Text style={styles.optionText}>진세</Text>
