@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import {
   createStackNavigator,
   createBottomTabNavigator,
+  createMaterialTopTabNavigator
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -17,6 +18,7 @@ import JsScreen from '../screens/JsScreen';
 import SyScreen from '../screens/SyScreen';
 import YhpScreen from '../screens/YhpScreen';
 import HsScreen from '../screens/HsScreen';
+import YrScreen from '../screens/YrScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -43,7 +45,8 @@ const WorkingListStack = createStackNavigator({
   Js: JsScreen,
   Sy: SyScreen,
   Yhp: YhpScreen,
-  Hs: HsScreen
+  Hs: HsScreen,
+  Yr: YrScreen
 });
 
 WorkingListStack.navigationOptions = {

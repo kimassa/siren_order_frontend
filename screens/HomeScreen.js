@@ -9,6 +9,8 @@ import {
   FlatList
 } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import { createMaterialTopTabNavigator } from 'react-navigation';
+import YrScreen from './YrScreen';
 
 class HomeScreen extends Component {
   
@@ -49,7 +51,7 @@ class HomeScreen extends Component {
               <ListItem
                 key={item.id}
                 title={item.branch}
-                id={item.supplier_id}
+                storeId={item.supplier_id}
                 subtitle={item.address}
                 rightSubtitle={parseInt(item.distance)+' m'}
                 containerElement={TouchableHighlight}
@@ -66,7 +68,7 @@ class HomeScreen extends Component {
 
 HomeScreen.navigationOptions = {
   // header: null,
-  title: '주문하기'
+  title: '매장목록'
 };
 
 const styles = StyleSheet.create({
@@ -164,4 +166,55 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+const MyNavigator = createMaterialTopTabNavigator({
+  Home: HomeScreen,
+  Yr: YrScreen
+}, {
+  animationEnabled: false,
+  swipeEnabled: true,
+  tabBarOptions: {
+    activeTintColor: 'rgb(12,157,197)',
+    inactiveTintColor: 'black',
+    indicatorStyle: {
+      backgroundColor: 'rgb(102,134,205)',
+    },
+    labelStyle: {
+      color: 'tomato',
+    },
+    tabStyle: {
+      height: 48,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    style: {
+      backgroundColor: 'white',
+    },
+    statusBarStyle: 'light-content',
+  }
+});
+
+MyNavigator.navigationOptions = ({ navigation, screenProps }) => ({
+  header: null,
+  headerMode: 'none',
+  tabBarVisible: true,
+  tabBarLabel: () => {
+    const { routeName } = navigation.state;
+    switch (routeName) {
+      //
+    }
+    return <Text>{routeName}</Text>;
+  },
+});
+
+class Page extends Component {
+  static router = MyNavigator.router;
+  render() {
+    return (
+      <MyNavigator
+        navigation={this.props.navigation}
+      />
+    );
+  }
+}
+
+export default Page;
