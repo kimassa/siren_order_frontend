@@ -10,6 +10,7 @@ import SjScreen from '../screens/SjScreen';
 import YhkScreen from '../screens/YhkScreen';
 import SsScreen from '../screens/SsScreen';
 import KmScreen from '../screens/KmScreen';
+import KmScreen2 from '../screens/KmScreen2';
 import JsScreen from '../screens/JsScreen';
 import SyScreen from '../screens/SyScreen';
 import YhpScreen from '../screens/YhpScreen';
@@ -33,6 +34,10 @@ const SsStack = createStackNavigator({
 
 const KmStack = createStackNavigator({
   Km: KmScreen,
+});
+
+const KmStack2 = createStackNavigator({
+  Km2: KmScreen2,
 });
 
 const JsStack = createStackNavigator({
@@ -60,6 +65,7 @@ export default createAppContainer(
     Yhk: YhkStack,
     Ss: SsStack,
     Km: KmStack,
+    Km2: KmScreen2,
     Js: JsStack,
     Sy: SyStack,
     Yhp: YhpStack,
