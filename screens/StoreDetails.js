@@ -8,23 +8,25 @@ import {
 import { Button } from 'react-native-elements';
 
 
-let dummyStoreData = {
-  id: 1,
-  name: "삼성점",
+let dummyStoreData = [{
+  supplier_id: 1,
+  name: "스타벅스",
+  branch: "삼성점",
   img_src: "http://image.chosun.com/sitedata/image/201901/02/2019010202214_0.jpg",
   address: "서울특별시 강남구 테헤란로 443, 애플트리타워 1층(삼성동)",
-  phone: "02-7777-7777"
-  
-}
+  phone: "02-7777-7777",
+  zipcode: "",
+}]
 
 
 
 
 export default class StoreDetails extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state ={
-      id: '',
+      supplier_id: props.navigation.getParam('storeId','no_id'),
+      branch: '',
       name: '',
       img_src: '',
       address: '',
@@ -34,40 +36,48 @@ export default class StoreDetails extends React.Component {
   
 
   componentDidMount(){
-    const { navigation } = this.props;
-    this.setState({
-      id: navigation.getParam('storeId', 'no_id'),
-    },() => {
-      console.log("예리님이 보내준 아이디는 : ", this.state);
-      fetch(`http://54.180.153.12:8000/supplier/${this.state.id}`)
-        .then(response => response.json())
-        .catch(()=> dummyStoreData)
-        .then(res =>{
-          this.setState({
-            name : res['name'],
-            address : res['address'],
-            img_src : res['img_src'],
-            phone : res['phone'],
-          }, () => {
-            console.log("제대로 데이트 들어가나 : ", this.state);
-          })
-        });
-    })
-
+    this.getData();
+    this.getTestData();
   }
- 
+
+  getData = () => {
+    console.log("예리님이 보내준 아이디는 : ", this.state);
+    fetch(`http://54.180.153.12:8000/supplier/${this.state.id}`)
+      .then(response => response.json())
+      .catch(()=> dummyStoreData)
+      .then(res =>{
+        this.setState({
+          name : res[0]['name'],
+          branch : res[0]['branch'],
+          address : res[0]['address'],
+          img_src : res[0]['img_src'],
+          phone : res[0]['phone'],
+          zipcode: res[0]['zipcode'],
+        }, () => {
+          console.log("제대로 데이트 들어가나 : ", this.state);
+        })
+      });
+  }
+
+  getTestData = () => {
+    fetch(`http://54.180.153.12:8000/supplier/2`)
+      .then(response => response.json())
+      .then(res =>{
+        console.log("민수님이 뭐 보내주나? : ", res);
+      });
+  }
   
   render(){
     return(
       <View style={styles.wrapper}>
         <View style={styles.contentsBox}>
-          <Text style={styles.title}>{this.state.name}으로 선택하시겠어요?</Text>
+          <Text style={styles.title}>{this.state.branch}으로 선택하시겠어요?</Text>
           <Image
             style={styles.storeImg}
             source={{uri:`${this.state.img_src}`}}
           />
 
-          <Text style={styles.storeName}>{this.state.name}</Text>
+          <Text style={styles.storeName}>{this.state.name} {this.state.branch}</Text>
           <Text style={styles.storeAddress}>{this.state.address}</Text>
           <View style={styles.storeContactWrapper}>
             <Text style={styles.storeContact}>문의 : {this.state.phone}</Text>
@@ -148,17 +158,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   btnLeft:{
-    fontSize: 16,
-    fontWeight: '500',
     borderRadius: 4,
     backgroundColor: '#dddddd',
-    color: '#777777',
   },
   btnRight:{
-    fontSize: 16,
-    fontWeight: '500',
     borderRadius: 4,
     backgroundColor: '#c18d3a',
-    color: 'white',
   }
 })
