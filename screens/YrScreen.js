@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
+import {ListItem} from "react-native-elements";
 
 export default class ListMap extends Component {
   
@@ -49,12 +50,14 @@ export default class ListMap extends Component {
         {
           storeList.map(store => (
             <Marker
+              key={store.supplier_id}
               coordinate={{
-                latitude: store.latitude,
-                longitude: store.longitude
+                latitude: +store.latitude,
+                longitude: +store.longitude
               }}
               title={store.branch}
               storeId={store.supplier_id}
+              onPress={e=>this.props.navigation.navigate('Sd', { storeId: store.supplier_id })}
             />
           ))
         }

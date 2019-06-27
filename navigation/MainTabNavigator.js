@@ -25,6 +25,7 @@ const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
     StoreDetails: StoreDetails,
+    Sd: StoreDetails,
   },
   {
     initialRouteName: "Home"
@@ -54,7 +55,7 @@ const WorkingListStack = createStackNavigator({
   Yhp: YhpScreen,
   Hs: HsScreen,
   Yr: YrScreen,
-  Sd: StoreDetails,
+
 },{
   initialRouteName: "WorkingList",
 });
