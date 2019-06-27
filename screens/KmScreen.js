@@ -8,8 +8,44 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
+import * as SecureStore from 'expo-secure-store'
 
 class KmScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  state = {
+    email: '',
+    password: ''
+  }
+
+  async handleLogin() {
+    const { email, password } = this.state;
+
+    const newUser = {
+      email,
+      password
+    }
+
+    let response = await fetch('http://54.180.153.12:8000/user/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newUser)
+    });
+
+    let responseJson = await response.json();
+    let token = responseJson.access_token;
+    // console.log(responseJson);
+
+    await SecureStore.setItemAsync('access_token', token);
+
+    const myToken = await SecureStore.getItemAsync('access_token');
+    // console.log(myToken);
+  }
 
   render () {
     return (
@@ -37,10 +73,15 @@ class KmScreen extends Component {
           <TextInput
             style={styles.inputBox}
             placeholder="아이디"
+            value={this.state.email}
+            onChangeText={(text) => this.setState({email: text})}
           />
           <TextInput
             style={styles.inputBox}
             placeholder="비밀번호"
+            secureTextEntry= {true}
+            value={this.state.password}
+            onChangeText={(password) => this.setState({password})}
           />
         </View>
 
@@ -52,7 +93,7 @@ class KmScreen extends Component {
 
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
         <Text style={{ color: 'white', fontSize: 23, padding: 23 }}>로그인하기</Text>
       </TouchableOpacity>
 
