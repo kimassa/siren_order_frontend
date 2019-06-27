@@ -49,13 +49,14 @@ class HomeScreen extends Component {
             data={storeList}
             renderItem={({ item }) => (
               <ListItem
-                key={item.id}
+                key={item.supplier_id}
                 title={item.branch}
                 storeId={item.supplier_id}
                 subtitle={item.address}
                 rightSubtitle={parseInt(item.distance)+' m'}
                 containerElement={TouchableHighlight}
                 containerStyle={{ borderBottomColor: '#ddd', borderBottomWidth: 1 }}
+                onPress={e=>this.props.navigation.navigate('Sd', { storeId: item.supplier_id })}
               />
             )}
             keyExtractor={(item, index) => index.toString()}

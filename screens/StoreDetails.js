@@ -42,7 +42,7 @@ export default class StoreDetails extends React.Component {
 
   getData = () => {
     console.log("예리님이 보내준 아이디는 : ", this.state);
-    fetch(`http://54.180.153.12:8000/supplier/${this.state.id}`)
+    fetch(`http://54.180.153.12:8000/supplier/${this.state.supplier_id}`)
       .then(response => response.json())
       .catch(()=> dummyStoreData)
       .then(res =>{
