@@ -13,7 +13,6 @@ class MenuList extends Component {
 
         const response = await fetch("http://54.180.153.12:8000/product/");
         const menuData = await response.json();
-        console.log(menuData);
         this.setState({
             menuArr: menuData
         })    
