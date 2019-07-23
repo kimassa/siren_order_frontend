@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image, FlatList } from "react-native";
 
-
+let colorArr = ["transparent", "#ebebeb"];
 
 class MenuList extends Component { 
  
@@ -10,7 +10,6 @@ class MenuList extends Component {
     }
    
     componentDidMount = async () => {
-
         const response = await fetch("http://54.180.153.12:8000/product/");
         const menuData = await response.json();
         this.setState({
@@ -18,39 +17,50 @@ class MenuList extends Component {
         })    
     }
 
-    AddCommaToNumber = number => {
+    addCommaToNumber = number => {
         const string = String(number);
         return string.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
     render () {
         const { menuArr } = this.state;
+    
    
         return (
-        <View>
-            <ScrollView>
-                <View style={styles.menuListHeader}>
-                    <Text style={styles.menuListHeaderText}>뒤로</Text>
-                    <Text style={styles.menuListHeaderText}>전체 메뉴</Text>
-                    <Text style={styles.menuListHeaderText}>돋보기</Text>
-                    <Text style={styles.menuListHeaderText}>카트</Text>
-                </View>
-                <View>
-                    {menuArr.map((menu, idx) => 
-                    <View style={styles.menuList} key={`menu-${idx}`} >
-                        <View style={styles.menuImageWrap}>
-                            <Image style={styles.menuImage} source={{uri: "https://cdn.foodbeast.com/wp-content/uploads/2017/08/Starbucks-Hot-Cup-STK-01.jpg"}}></Image>
-                        </View>
-                        <View style={styles.menuDetailWrap}>
-                            <View><Text style={styles.menuName}>{menu.name}</Text></View>
-                            <View><Text style={styles.menuNameEnglish}>Menu in English</Text></View>
-                            <View><Text style={styles.menuPrice}>{this.AddCommaToNumber(menu.price)}원</Text></View>
-                        </View>
+            menuArr &&  
+            (<View>
+                <ScrollView>
+                    <View style={styles.menuListHeader}>
+                        <Text style={styles.menuListHeaderText}>뒤로</Text>
+                        <Text style={styles.menuListHeaderText}>전체 메뉴</Text>
+                        <Text style={styles.menuListHeaderText}>돋보기</Text>
+                        <Text style={styles.menuListHeaderText}>카트</Text>
                     </View>
-                    )}
-                </View>
-            </ScrollView>
-        </View>
+                    <View>
+                        <FlatList
+                            data={menuArr}
+                            keyExtractor={menu => `menu-${menu.index}`}
+                            renderItem={(menu) => {
+                                return (
+                                <View style={{backgroundColor : colorArr[menu.index % 2]}}>
+                                    <View style={styles.menuList} >
+                                        <View style={styles.menuImageWrap}>
+                                            <Image style={styles.menuImage } source={{uri: "https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/beveragedaily.com/article/2018/08/28/nestle-gains-unparalleled-position-in-coffee-business-with-starbucks-alliance/8543630-1-eng-GB/Nestle-gains-unparalleled-position-in-coffee-business-with-Starbucks-alliance_wrbm_large.jpg"}}></Image>
+                                        </View>
+                                        <View style={styles.menuDetailWrap}>
+                                            <View><Text style={styles.menuName}>{menu.item.name}</Text></View>
+                                            <View><Text style={styles.menuNameEnglish}>Menu in English</Text></View>
+                                            <View><Text style={styles.menuPrice}>{this.addCommaToNumber(menu.item.price)}원</Text></View>
+                                        </View>
+                                    </View>
+                                </View>
+                                )
+                            }}
+                        />
+                    </View>
+                </ScrollView>
+            </View>)
+       
         );
     }
 }
@@ -71,14 +81,7 @@ const styles = StyleSheet.create({
     menuList: {
         flexDirection: "row",
         marginBottom: 30,
-    },
-
-    oddList: {
-        backgroundColor: "gray"
-    },
-
-    evenList: {
-        backgroundColor: "transparent"
+        paddingTop: 20
     },
 
     menuDetailWrap: {
