@@ -113,6 +113,15 @@ export default class WorkingListScreen extends Component {
             <Text style={styles.optionText}>매장상세</Text>
           </View>
         </Touchable>
+
+        <Touchable
+          style={styles.option}
+          background={Touchable.Ripple('#ccc', false)}
+          onPress={_=>this._moveToPage('Bk')}>
+          <View>
+            <Text style={styles.optionText}>병진</Text>
+          </View>
+        </Touchable>
       </ScrollView>
     );
   }
