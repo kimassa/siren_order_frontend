@@ -10,9 +10,9 @@ import {
 } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { createMaterialTopTabNavigator } from 'react-navigation';
-import YrScreen from './YrScreen';
+import StoreMapScreen from './StoreMapScreen';
 
-class HomeScreen extends Component {
+class StoreListScreen extends Component {
   
   state = {
     storeList: []
@@ -20,6 +20,7 @@ class HomeScreen extends Component {
   
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(async position => {
+      console.log(position)
         const res = await fetch(`http://54.180.153.12:8000/supplier/location?lon=${position.coords.longitude}&lat=${position.coords.latitude}`);
         const result = await res.json();
         
@@ -67,7 +68,7 @@ class HomeScreen extends Component {
   }
 }
 
-HomeScreen.navigationOptions = {
+StoreListScreen.navigationOptions = {
   // header: null,
   title: '매장목록'
 };
@@ -168,8 +169,8 @@ const styles = StyleSheet.create({
 });
 
 const MyNavigator = createMaterialTopTabNavigator({
-  Home: HomeScreen,
-  Yr: YrScreen
+  Home: StoreListScreen,
+  StoreMap: StoreMapScreen
 }, {
   animationEnabled: false,
   swipeEnabled: true,

@@ -9,7 +9,7 @@ export default class WorkingListScreen extends Component {
         <Touchable
           style={styles.option}
           background={Touchable.Ripple('#ccc', false)}
-          onPress={_=>this._moveToPage('Yr')}>
+          onPress={_=>this._moveToPage('StoreMap')}>
           <View>
             <Text style={styles.optionText}>예리 - 매장목록</Text>
           </View>

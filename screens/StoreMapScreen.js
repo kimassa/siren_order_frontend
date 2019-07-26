@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import {ListItem} from "react-native-elements";
 
-export default class ListMap extends Component {
+export default class StoreMapScreen extends Component {
   
   state = {
     storeList: [],
@@ -66,7 +65,7 @@ export default class ListMap extends Component {
   }
 }
 
-ListMap.navigationOptions = {
+StoreMapScreen.navigationOptions = {
   // header: null,
   title: '지도'
 };
