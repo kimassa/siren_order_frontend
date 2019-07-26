@@ -19,6 +19,7 @@ import YhpScreen from '../screens/YhpScreen';
 import HsScreen from '../screens/HsScreen';
 import StoreDetails from '../screens/StoreDetails';
 import StoreMapScreen from '../screens/StoreMapScreen';
+import BkScreen from "../screens/BkScreen";
 
 const HomeStack = createStackNavigator(
   {
@@ -54,6 +55,7 @@ const WorkingListStack = createStackNavigator({
   Yhp: YhpScreen,
   Hs: HsScreen,
   StoreMap: StoreMapScreen,
+  Bk: BkScreen
 
 },{
   initialRouteName: "WorkingList",
