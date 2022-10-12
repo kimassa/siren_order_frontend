@@ -16,7 +16,7 @@
     "@expo/vector-icons": "^10.0.1",
     "expo": "^33.0.7",
     "expo-asset": "^5.0.0",
-    "expo-cli": "^3.0.2",
+    "expo-cli": "^6.0.6",
     "expo-constants": "^5.0.0",
     "expo-font": "^5.0.0",
     "expo-secure-store": "^5.0.1",
